@@ -1,0 +1,147 @@
+{
+  "mappings" : [ {
+    "id" : "a272f18b-52be-4fda-adb0-2f57bc1ec9bb",
+    "name" : "register",
+    "request" : {
+      "url" : "/customer/register",
+      "method" : "POST",
+      "headers" : {
+        "Accept" : {
+          "contains" : "json"
+        }
+      },
+      "pathParameters" : { },
+      "formParameters" : { },
+      "bodyPatterns" : [ {
+        "equalToJson" : "{\n    \n    \"user_name\":\"abc\",\n    \"country_mobile_code\":\"+20\",\n        \"mobile_number\":\"01234567890\",\n    \"email\":\"abc@gmail.com\",\n    \"password\":\"123456\",\n        \"profile_picture\":\"\"\n\n    \n}"
+      } ]
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "\n{\n    \"status\":0,\n    \"massage\":\"user registered successffully\",\n    \"customer\":{\n        \"id\":\"123456789\",\n        \"name\":\"mohamed elzoghpy\",\n        \"numOfNotification\":12\n    },\n    \"contacts\":{\n                \"phone\":\"0123456789\",\n                \"email\":\"abc@gmail.com\",\n                \"link\":\"elzoghpy@facebook\"\n            }\n}\n\n",
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "delayDistribution" : {
+        "type" : "fixed",
+        "milliseconds" : 3000
+      }
+    },
+    "uuid" : "a272f18b-52be-4fda-adb0-2f57bc1ec9bb",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-12-23T08:45:33.394535504Z",
+          "via" : "ADMIN_API",
+          "by" : "ovyl7"
+        },
+        "updated" : {
+          "at" : "2023-12-23T08:48:39.602464772Z",
+          "via" : "ADMIN_API",
+          "by" : "ovyl7"
+        },
+        "response-example-attachment" : "register"
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "52870ed5-c635-4d93-8f33-e788963a2641",
+    "name" : "forget password",
+    "request" : {
+      "url" : "/customer/forgetpassword",
+      "method" : "POST",
+      "headers" : {
+        "Accept" : {
+          "contains" : "json"
+        }
+      },
+      "pathParameters" : { },
+      "formParameters" : { },
+      "bodyPatterns" : [ {
+        "equalToJson" : "{\n    \"email\":\"abc@gmail.com\"\n}"
+      } ]
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "\n {\n    \"status\":0,\n    \"massage\":\"user logged in successffully\",\n    \"support\":\"we have sent an emai; to you, if you need any help,contact us on support@elzoghpy.com\"\n    \n }\n",
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "delayDistribution" : {
+        "type" : "fixed",
+        "milliseconds" : 3000
+      }
+    },
+    "uuid" : "52870ed5-c635-4d93-8f33-e788963a2641",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-12-17T19:37:09.703238933Z",
+          "via" : "ADMIN_API",
+          "by" : "ovyl7"
+        },
+        "updated" : {
+          "at" : "2023-12-23T08:36:00.943718738Z",
+          "via" : "ADMIN_API",
+          "by" : "ovyl7"
+        },
+        "response-example-attachment" : "forget password"
+      }
+    },
+    "postServeActions" : [ ]
+  }, {
+    "id" : "d734e663-8f00-403f-87ab-4da3cdf3356a",
+    "name" : "Login",
+    "request" : {
+      "url" : "/customer/login",
+      "method" : "POST",
+      "headers" : {
+        "Accept" : {
+          "contains" : "json"
+        }
+      },
+      "pathParameters" : { },
+      "formParameters" : { },
+      "bodyPatterns" : [ {
+        "equalToJson" : "{\n    \"email\":\"abc@gmail.com\",\n    \"password\":\"123456\"\n    \n}"
+      } ]
+    },
+    "response" : {
+      "status" : 200,
+      "body" : "\n{\n    \"status\":0,\n    \"massage\":\"user logged in successffully\",\n    \"customer\":{\n        \"id\":\"123456789\",\n        \"name\":\"mohamed elzoghpy\",\n        \"numOfNotification\":12\n    },\n    \"contacts\":{\n                \"phone\":\"0123456789\",\n                \"email\":\"abc@gmail.com\",\n                \"link\":\"elzoghpy@facebook\"\n            }\n}\n",
+      "headers" : {
+        "Content-Type" : "application/json"
+      },
+      "delayDistribution" : {
+        "type" : "fixed",
+        "milliseconds" : 2000
+      }
+    },
+    "uuid" : "d734e663-8f00-403f-87ab-4da3cdf3356a",
+    "persistent" : true,
+    "priority" : 5,
+    "metadata" : {
+      "mocklab" : {
+        "created" : {
+          "at" : "2023-12-08T12:32:34.953980008Z",
+          "via" : "ADMIN_API",
+          "by" : "ovyl7"
+        },
+        "updated" : {
+          "at" : "2023-12-23T08:35:53.714527113Z",
+          "via" : "ADMIN_API",
+          "by" : "ovyl7"
+        },
+        "response-example-attachment" : "Login"
+      }
+    },
+    "postServeActions" : [ ]
+  } ],
+  "meta" : {
+    "total" : 3
+  }
+}
