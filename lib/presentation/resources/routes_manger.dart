@@ -1,14 +1,15 @@
 // ignore_for_file: unreachable_switch_case
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:tupapp/app/di.dart';
 import 'package:tupapp/presentation/forgot_password/view/forgot_password_view.dart';
 import 'package:tupapp/presentation/login/view/login_view.dart';
 import 'package:tupapp/presentation/main/main_view.dart';
-import 'package:tupapp/presentation/onboarding/view/onbording_view.dart';
-import 'package:tupapp/presentation/register/register_view.dart';
+import 'package:tupapp/presentation/onboarding/view/onboarding_view.dart';
+import 'package:tupapp/presentation/register/view/register_view.dart';
 import 'package:tupapp/presentation/resources/strings_manger.dart';
-import 'package:tupapp/presentation/store_details/store_setails_view.dart';
+import 'package:tupapp/presentation/store_details/store_details_view.dart';
 
 import '../splash/splash_view.dart';
 
@@ -33,12 +34,17 @@ class RouteGenerator {
       case Routes.onBoardingRoute:
         return MaterialPageRoute(builder: (_) => const OnBoardingView());
       case Routes.registerRoute:
+        initRegisterModule();
         return MaterialPageRoute(builder: (_) => const registerView());
       case Routes.forgotPasswordRoute:
+        initForgotPasswordModule();
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
       case Routes.mainRoute:
+        initHomeModule();
         return MaterialPageRoute(builder: (_) => const MainView());
       case Routes.storeDetailsRoute:
+        initStoreDetailsModule();
+
         return MaterialPageRoute(builder: (_) => const StoreDetailsView());
       default:
         return unDefinedRoute();
@@ -49,9 +55,9 @@ class RouteGenerator {
     return MaterialPageRoute(
         builder: (_) => Scaffold(
               appBar: AppBar(
-                title: const Text(AppStrings.noRoutFound),
+                title: Text(AppStrings.noRouteFound.tr()),
               ),
-              body: const Center(child: Text(AppStrings.noRoutFound)),
+              body: Center(child: Text(AppStrings.noRouteFound.tr())),
             ));
   }
 }

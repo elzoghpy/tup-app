@@ -1,10 +1,11 @@
 // ignore_for_file: camel_case_types, unused_element, unused_field, library_private_types_in_public_api
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:tupapp/app/app_prefs.dart';
 import 'package:tupapp/app/di.dart';
-import 'package:tupapp/presentation/common/state_rendeer/state_rendeer_impl.dart';
+import 'package:tupapp/presentation/base/common/state_rendeer/state_rendeer_impl.dart';
 import 'package:tupapp/presentation/login/viewmodel/login_viewmodel.dart';
 import 'package:tupapp/presentation/resources/assets_manger.dart';
 import 'package:tupapp/presentation/resources/color_manager.dart';
@@ -95,11 +96,11 @@ class _LoginViewState extends State<LoginView> {
                           keyboardType: TextInputType.emailAddress,
                           controller: _userNameController,
                           decoration: InputDecoration(
-                              hintText: AppStrings.username,
-                              labelText: AppStrings.username,
+                              hintText: AppStrings.username.tr(),
+                              labelText: AppStrings.username.tr(),
                               errorText: (snapshot.data ?? true)
                                   ? null
-                                  : AppStrings.usernameError),
+                                  : AppStrings.usernameError.tr()),
                         );
                       }),
                 ),
@@ -119,11 +120,11 @@ class _LoginViewState extends State<LoginView> {
                           keyboardType: TextInputType.visiblePassword,
                           controller: _userPasswordController,
                           decoration: InputDecoration(
-                              hintText: AppStrings.password,
-                              labelText: AppStrings.password,
+                              hintText: AppStrings.password.tr(),
+                              labelText: AppStrings.password.tr(),
                               errorText: (snapshot.data ?? true)
                                   ? null
-                                  : AppStrings.passwordError),
+                                  : AppStrings.passwordError.tr()),
                         );
                       }),
                 ),
@@ -146,7 +147,7 @@ class _LoginViewState extends State<LoginView> {
                                       const Navigator();
                                     }
                                   : null,
-                              child: const Text(AppStrings.login)),
+                              child: Text(AppStrings.login.tr())),
                         );
                       }),
                 ),
@@ -160,18 +161,17 @@ class _LoginViewState extends State<LoginView> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
+                            Navigator.pushNamed(
                                 context, Routes.forgotPasswordRoute);
                           },
-                          child: Text(AppStrings.forgetPassword,
+                          child: Text(AppStrings.forgetPassword.tr(),
                               style: Theme.of(context).textTheme.titleSmall),
                         ),
                         TextButton(
                           onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.registerRoute);
+                            Navigator.pushNamed(context, Routes.registerRoute);
                           },
-                          child: Text(AppStrings.registerText,
+                          child: Text(AppStrings.registerText.tr(),
                               style: Theme.of(context).textTheme.titleSmall),
                         )
                       ],

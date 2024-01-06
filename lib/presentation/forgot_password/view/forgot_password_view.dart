@@ -1,64 +1,51 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, library_private_types_in_public_api
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:tupapp/app/app_prefs.dart';
 import 'package:tupapp/app/di.dart';
-import 'package:tupapp/presentation/common/state_rendeer/state_rendeer_impl.dart';
-import 'package:tupapp/presentation/login/viewmodel/login_viewmodel.dart';
+import 'package:tupapp/presentation/base/common/state_rendeer/state_rendeer_impl.dart';
+import 'package:tupapp/presentation/forgot_password/viewmodel/forgot_password_viewmodel.dart';
 import 'package:tupapp/presentation/resources/assets_manger.dart';
 import 'package:tupapp/presentation/resources/color_manager.dart';
-import 'package:tupapp/presentation/resources/routes_manger.dart';
 import 'package:tupapp/presentation/resources/strings_manger.dart';
 import 'package:tupapp/presentation/resources/values_manger.dart';
 
 class ForgotPasswordView extends StatefulWidget {
-  const ForgotPasswordView({super.key});
+  const ForgotPasswordView({Key? key}) : super(key: key);
 
   @override
-  State<ForgotPasswordView> createState() => _forgotPasswordViewState();
+  _ForgotPasswordViewState createState() => _ForgotPasswordViewState();
 }
 
-class _forgotPasswordViewState extends State<ForgotPasswordView> {
-  final LoginViewModel _viewModel = instance<LoginViewModel>();
-  final AppPreferences _appPreferences = instance<AppPreferences>();
-
-  final TextEditingController _userNameController = TextEditingController();
+class _ForgotPasswordViewState extends State<ForgotPasswordView> {
   final _formKey = GlobalKey<FormState>();
+  final TextEditingController _emailTextEditingController =
+      TextEditingController();
 
-  _bind() {
-    _viewModel.start(); // tell viewmodel, start ur job
-    _userNameController
-        .addListener(() => _viewModel.setUserName(_userNameController.text));
+  final ForgotPasswordViewModel _viewModel =
+      instance<ForgotPasswordViewModel>();
 
-    _viewModel.isUserLoggedInSuccessfullyStreamController.stream
-        .listen((isLoggedIn) {
-      if (isLoggedIn) {
-        // navigate to main screen
-        SchedulerBinding.instance.addPostFrameCallback((_) {
-          _appPreferences.setUserLoggedIn();
-          Navigator.of(context).pushReplacementNamed(Routes.mainRoute);
-        });
-      }
-    });
+  bind() {
+    _viewModel.start();
+    _emailTextEditingController.addListener(
+        () => _viewModel.setEmail(_emailTextEditingController.text));
   }
 
   @override
   void initState() {
-    _bind();
+    bind();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: ColorManager.white,
       body: StreamBuilder<FlowState>(
         stream: _viewModel.outputState,
         builder: (context, snapshot) {
           return snapshot.data?.getScreenWidget(context, _getContentWidget(),
                   () {
-                _viewModel.login();
+                _viewModel.forgotPassword();
               }) ??
               _getContentWidget();
         },
@@ -68,96 +55,64 @@ class _forgotPasswordViewState extends State<ForgotPasswordView> {
 
   Widget _getContentWidget() {
     return Container(
-        padding: const EdgeInsets.only(top: AppPadding.p100),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              children: [
-                const Center(
-                    child: Image(image: AssetImage(ImageAssets.splashLogo))),
-                const SizedBox(
-                  height: AppSize.s40,
+      constraints: const BoxConstraints.expand(),
+      padding: const EdgeInsets.only(top: AppPadding.p100),
+      color: ColorManager.white,
+      child: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              const Image(image: AssetImage(ImageAssets.splashLogo)),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p28, right: AppPadding.p28),
+                child: StreamBuilder<bool>(
+                  stream: _viewModel.outputIsEmailValid,
+                  builder: (context, snapshot) {
+                    return TextFormField(
+                      style: TextStyle(
+                          color: ColorManager.primary, fontSize: AppSize.s16),
+                      keyboardType: TextInputType.emailAddress,
+                      controller: _emailTextEditingController,
+                      decoration: InputDecoration(
+                          hintText: AppStrings.emailHint.tr(),
+                          labelText: AppStrings.emailHint.tr(),
+                          errorText: (snapshot.data ?? true)
+                              ? null
+                              : AppStrings.invalidEmail.tr()),
+                    );
+                  },
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: StreamBuilder<bool>(
-                      stream: _viewModel.outIsUserNameValid,
-                      builder: (context, snapshot) {
-                        return TextFormField(
-                          style: TextStyle(
-                              color: ColorManager.primary,
-                              fontSize: AppSize.s16),
-                          keyboardType: TextInputType.emailAddress,
-                          controller: _userNameController,
-                          decoration: InputDecoration(
-                              hintText: AppStrings.username,
-                              labelText: AppStrings.username,
-                              errorText: (snapshot.data ?? true)
-                                  ? null
-                                  : AppStrings.usernameError),
-                        );
-                      }),
+              ),
+              const SizedBox(
+                height: AppSize.s28,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: AppPadding.p28, right: AppPadding.p28),
+                child: StreamBuilder<bool>(
+                  stream: _viewModel.outputIsAllInputValid,
+                  builder: (context, snapshot) {
+                    return SizedBox(
+                      width: double.infinity,
+                      height: AppSize.s40,
+                      child: ElevatedButton(
+                          onPressed: (snapshot.data ?? false)
+                              ? () => _viewModel.forgotPassword()
+                              : null,
+                          child: Text(AppStrings.resetPassword.tr())),
+                    );
+                  },
                 ),
-                const SizedBox(
-                  height: AppSize.s40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      left: AppPadding.p28, right: AppPadding.p28),
-                  child: StreamBuilder<bool>(
-                      stream: _viewModel.outAreAllInputsValid,
-                      builder: (context, snapshot) {
-                        return SizedBox(
-                          width: double.infinity,
-                          height: AppSize.s40,
-                          child: ElevatedButton(
-                              onPressed: (snapshot.data ?? false)
-                                  ? () {
-                                      _viewModel.login();
-                                      const Navigator();
-                                    }
-                                  : null,
-                              child: const Text(AppStrings.login)),
-                        );
-                      }),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(
-                        top: AppPadding.p8,
-                        left: AppPadding.p20,
-                        right: AppPadding.p20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.forgotPasswordRoute);
-                          },
-                          child: Text(AppStrings.forgetPassword,
-                              style: Theme.of(context).textTheme.titleSmall),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushReplacementNamed(
-                                context, Routes.registerRoute);
-                          },
-                          child: Text(AppStrings.registerText,
-                              style: Theme.of(context).textTheme.titleSmall),
-                        )
-                      ],
-                    )),
-              ],
-            ),
+              )
+            ],
           ),
-        ));
-  }
-
-  @override
-  void dispose() {
-    _viewModel.dispose();
-    super.dispose();
+        ),
+      ),
+    );
   }
 }

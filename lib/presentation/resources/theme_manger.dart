@@ -46,18 +46,23 @@ ThemeData getApplicationTheme() {
                 borderRadius: BorderRadius.circular(AppSize.s12)))),
 
     textTheme: TextTheme(
-        displayLarge: getSemiBoldStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s16),
-        headlineLarge: getSemiBoldStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s16),
-        headlineMedium: getRegularStyle(
-            color: ColorManager.darkGrey, fontSize: FontSize.s14),
-        titleMedium:
-            getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s16),
-        titleSmall:
-            getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s14),
-        bodyLarge: getRegularStyle(color: ColorManager.grey1),
-        bodySmall: getRegularStyle(color: ColorManager.grey)),
+      displayLarge: getSemiBoldStyle(
+          color: ColorManager.darkGrey, fontSize: FontSize.s16),
+      headlineLarge: getSemiBoldStyle(
+          color: ColorManager.darkGrey, fontSize: FontSize.s16),
+      headlineMedium:
+          getRegularStyle(color: ColorManager.darkGrey, fontSize: FontSize.s14),
+      titleMedium:
+          getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+      labelSmall:
+          getRegularStyle(color: ColorManager.primary, fontSize: FontSize.s16),
+      titleSmall:
+          getMediumStyle(color: ColorManager.primary, fontSize: FontSize.s14),
+      bodyLarge: getRegularStyle(color: ColorManager.grey1),
+      bodySmall: getRegularStyle(color: ColorManager.grey, fontSize: FontSize.s14),
+      bodyMedium:
+          getRegularStyle(color: ColorManager.grey2, fontSize: FontSize.s12),
+    ),
 
     // input decoration theme (text form field)
     inputDecorationTheme: InputDecorationTheme(

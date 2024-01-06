@@ -6,10 +6,9 @@ import 'dart:async';
 
 import 'package:tupapp/domain/usecase/login_usecase.dart';
 import 'package:tupapp/presentation/base/baseviewmodel.dart';
-import 'package:tupapp/presentation/common/freezed_data_classes.dart';
-import 'package:tupapp/presentation/common/state_rendeer/state_rendeer_impl.dart';
-
-import '../../common/state_rendeer/state_rendeer.dart';
+import 'package:tupapp/presentation/base/common/freezed_data_classes.dart';
+import 'package:tupapp/presentation/base/common/state_rendeer/state_rendeer.dart';
+import 'package:tupapp/presentation/base/common/state_rendeer/state_rendeer_impl.dart';
 
 class LoginViewModel extends BaseViewModel
     implements LoginViewModelInputs, LoginViewModelOutputs {
@@ -82,7 +81,7 @@ class LoginViewModel extends BaseViewModel
                 }, (data) {
       // right -> data (success)
       // content
-      inputState.add(());
+      inputState.add(ContentState());
       // navigate to main screen
       isUserLoggedInSuccessfullyStreamController.add(true);
     });

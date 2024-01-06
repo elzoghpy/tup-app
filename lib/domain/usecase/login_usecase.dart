@@ -3,8 +3,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:tupapp/data/network/failure.dart';
 import 'package:tupapp/data/network/requests.dart';
+import 'package:tupapp/data/repository/repository.dart';
 import 'package:tupapp/domain/model/models.dart';
-import 'package:tupapp/domain/repository/repository.dart';
 import 'package:tupapp/domain/usecase/base_usecase.dart';
 
 class LoginUseCase implements BaseUseCase<LoginUseCaseInput, Authentication> {

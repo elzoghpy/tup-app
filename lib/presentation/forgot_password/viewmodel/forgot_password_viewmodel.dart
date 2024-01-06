@@ -5,8 +5,8 @@ import 'dart:async';
 import 'package:tupapp/app/functions.dart';
 import 'package:tupapp/domain/usecase/forgot_password_usecase.dart';
 import 'package:tupapp/presentation/base/baseviewmodel.dart';
-import 'package:tupapp/presentation/common/state_rendeer/state_rendeer.dart';
-import 'package:tupapp/presentation/common/state_rendeer/state_rendeer_impl.dart';
+import 'package:tupapp/presentation/base/common/state_rendeer/state_rendeer.dart';
+import 'package:tupapp/presentation/base/common/state_rendeer/state_rendeer_impl.dart';
 
 class ForgotPasswordViewModel extends BaseViewModel
     implements ForgotPasswordViewModelInputs, ForgotPasswordViewModelOutputs {
@@ -35,7 +35,7 @@ class ForgotPasswordViewModel extends BaseViewModel
       inputState
           .add(ErrorState(StateRendererType.popupErrorState, failure.message));
     }, (supportMessage) {
-      inputState.add(ContentState());
+      inputState.add(SuccessState(supportMessage));
     });
   }
 
@@ -59,12 +59,12 @@ class ForgotPasswordViewModel extends BaseViewModel
   }
 
   @override
-  Stream<bool> get outIsAllInputsValid =>
+  Stream<bool> get outputIsAllInputValid =>
       _isAllInputValidStreamController.stream
           .map((isAllInputValid) => _IsAllInputValid());
 
   @override
-  Stream<bool> get outIsEmailValid =>
+  Stream<bool> get outputIsEmailValid =>
       _emailStreamController.stream.map((email) => isEmailValid(email));
 
   // ignore: non_constant_identifier_names
@@ -88,6 +88,6 @@ abstract class ForgotPasswordViewModelInputs {
 }
 
 abstract class ForgotPasswordViewModelOutputs {
-  Stream<bool> get outIsEmailValid;
-  Stream<bool> get outIsAllInputsValid;
+  Stream<bool> get outputIsEmailValid;
+  Stream<bool> get outputIsAllInputValid;
 }

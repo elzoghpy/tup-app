@@ -2,7 +2,7 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:tupapp/data/network/failure.dart';
-import 'package:tupapp/domain/repository/repository.dart';
+import 'package:tupapp/data/repository/repository.dart';
 import 'package:tupapp/domain/usecase/base_usecase.dart';
 
 class ForgotPasswordUseCase implements BaseUseCase<String, String> {
